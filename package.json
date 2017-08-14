@@ -1,0 +1,17 @@
+{
+	"name": "leopard",
+	"description": "Leopard",
+	"version": "1.0.0",
+	"author": "Shawn Jonnet",
+	"dependencies": {
+		"nib": "1.x.x",
+		"pug": "2.x.x",
+		"pug-cli": "1.x.x",
+		"serve": "1.x.x",
+		"stylus": "0.x.x",
+		"uglify-js": "3.x.x"
+	},
+	"engines": {
+		"node": ">= 0.6.0"
+	}
+}

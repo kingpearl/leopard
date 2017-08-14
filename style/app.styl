@@ -1,0 +1,551 @@
+/**
+ * Pearl App
+ * Copyright(c) 2012 King Pearl LLC
+ * MIT Licensed
+ */
+
+/**
+ * Variables
+ */
+
+// Links
+$link-color ?= #7c9bc0
+$link-color-hover ?= darken($link-color, 10)
+
+// Grays
+$black = #000
+$gray-dark ?= lighten($black, 25%)
+$gray ?= lighten($black, 50%)
+$gray-light ?= lighten($black, 75%)
+$gray-lighter ?= lighten($black, 90%)
+$white ?= #fff
+
+// Baseline
+$basefont ?= 1em
+$baseline ?= 1.4
+
+// Grid
+$grid-direction ?= left
+$grid-gutter ?= 20px
+
+/**
+ * Functions
+ */
+
+/**
+ * Mixins
+ */
+
+// Grid build units
+grid-build-units(units, modifier= '')
+	for $n in units
+		for $i in 1..($n - 1)
+			.unit-{$i}-{$n}{modifier}
+				width (($i / $n) * 100%)
+
+// Hidden
+hidden()
+	display none !important
+
+// Visually hidden
+visuallyhidden()
+	border 0
+	clip rect(0 0 0 0)
+	clip-path inset(50%)
+	height 1px
+	margin -1px
+	overflow hidden
+	padding 0
+	position absolute
+	width 1px
+
+	&.focusable:active, &.focusable:focus
+		clip auto
+		clip-path none
+		height auto
+		margin 0
+		overflow visible
+		position static
+		width auto
+
+// Invisible
+invisible()
+	visibility hidden
+
+// Clearfix
+clearfix()
+	&:before, &:after
+		content ' '
+		display table
+
+	&:after
+		clear both
+
+// Icon
+icon(letter)
+	*zoom 'expression(this.runtimeStyle["zoom"] = "1", this.innerHTML = "%s")' % unquote(letter)
+
+	&:before
+		content letter
+
+/**
+ * Fonts
+ */
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-Light-webfont.eot')
+	src url('../fonts/OpenSans-Light-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Light-webfont.woff2') format('woff2'), url('../fonts/OpenSans-Light-webfont.woff') format('woff'), url('../fonts/OpenSans-Light-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Light-webfont.svg#OpenSansLight') format('svg')
+	font-weight 300
+	font-style normal
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-LightItalic-webfont.eot')
+	src url('../fonts/OpenSans-LightItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-LightItalic-webfont.woff2') format('woff2'), url('../fonts/OpenSans-LightItalic-webfont.woff') format('woff'), url('../fonts/OpenSans-LightItalic-webfont.ttf') format('truetype'), url('../fonts/OpenSans-LightItalic-webfont.svg#OpenSansLightItalic') format('svg')
+	font-weight 300
+	font-style italic
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-Regular-webfont.eot')
+	src url('../fonts/OpenSans-Regular-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Regular-webfont.woff2') format('woff2'), url('../fonts/OpenSans-Regular-webfont.woff') format('woff'), url('../fonts/OpenSans-Regular-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Regular-webfont.svg#OpenSansRegular') format('svg')
+	font-weight normal
+	font-style normal
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-Italic-webfont.eot')
+	src url('../fonts/OpenSans-Italic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Italic-webfont.woff2') format('woff2'), url('../fonts/OpenSans-Italic-webfont.woff') format('woff'), url('../fonts/OpenSans-Italic-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Italic-webfont.svg#OpenSansItalic') format('svg')
+	font-weight normal
+	font-style italic
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-Semibold-webfont.eot')
+	src url('../fonts/OpenSans-Semibold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Semibold-webfont.woff2') format('woff2'), url('../fonts/OpenSans-Semibold-webfont.woff') format('woff'), url('../fonts/OpenSans-Semibold-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Semibold-webfont.svg#OpenSansSemibold') format('svg')
+	font-weight 600
+	font-style normal
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-SemiboldItalic-webfont.eot')
+	src url('../fonts/OpenSans-SemiboldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-SemiboldItalic-webfont.woff2') format('woff2'), url('../fonts/OpenSans-SemiboldItalic-webfont.woff') format('woff'), url('../fonts/OpenSans-SemiboldItalic-webfont.ttf') format('truetype'), url('../fonts/OpenSans-SemiboldItalic-webfont.svg#OpenSansSemiboldItalic') format('svg')
+	font-weight 600
+	font-style italic
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-Bold-webfont.eot')
+	src url('../fonts/OpenSans-Bold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-Bold-webfont.woff2') format('woff2'), url('../fonts/OpenSans-Bold-webfont.woff') format('woff'), url('../fonts/OpenSans-Bold-webfont.ttf') format('truetype'), url('../fonts/OpenSans-Bold-webfont.svg#OpenSansBold') format('svg')
+	font-weight bold
+	font-style normal
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-BoldItalic-webfont.eot')
+	src url('../fonts/OpenSans-BoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-BoldItalic-webfont.woff2') format('woff2'), url('../fonts/OpenSans-BoldItalic-webfont.woff') format('woff'), url('../fonts/OpenSans-BoldItalic-webfont.ttf') format('truetype'), url('../fonts/OpenSans-BoldItalic-webfont.svg#OpenSansBoldItalic') format('svg')
+	font-weight bold
+	font-style italic
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-ExtraBold-webfont.eot')
+	src url('../fonts/OpenSans-ExtraBold-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-ExtraBold-webfont.woff2') format('woff2'), url('../fonts/OpenSans-ExtraBold-webfont.woff') format('woff'), url('../fonts/OpenSans-ExtraBold-webfont.ttf') format('truetype'), url('../fonts/OpenSans-ExtraBold-webfont.svg#OpenSansExtrabold') format('svg')
+	font-weight 800
+	font-style normal
+
+@font-face
+	font-family 'Open Sans'
+	src url('../fonts/OpenSans-ExtraBoldItalic-webfont.eot')
+	src url('../fonts/OpenSans-ExtraBoldItalic-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/OpenSans-ExtraBoldItalic-webfont.woff2') format('woff2'), url('../fonts/OpenSans-ExtraBoldItalic-webfont.woff') format('woff'), url('../fonts/OpenSans-ExtraBoldItalic-webfont.ttf') format('truetype'), url('../fonts/OpenSans-ExtraBoldItalic-webfont.svg#OpenSansExtraboldItalic') format('svg')
+	font-weight 800
+	font-style italic
+
+@font-face
+	font-family 'Pictos'
+	src url('../fonts/pictos-web.eot')
+	src url('../fonts/pictos-web.eot?#iefix'), url('../fonts/pictos-web.woff') format('woff'), url('../fonts/pictos-web.ttf') format('truetype'), url('../fonts/pictos-web.svg#webfontIyfZbseF') format('svg')
+	font-weight normal
+	font-style normal
+
+/**
+ * Normalize
+ */
+
+html
+	font-family 'Open Sans', sans-serif
+	-ms-text-size-adjust 100%
+	-webkit-text-size-adjust 100%
+
+body
+	margin 0
+
+.pearl
+
+	article, aside, footer, header, nav, section
+		display block
+
+	h1
+		font-size 2em
+		margin 0.67em 0
+
+	figcaption, figure, main
+		display block
+
+	figure
+		margin 1em 40px
+
+	hr
+		box-sizing content-box
+		height 0
+		overflow visible
+
+	pre
+		font-family monospace, monospace
+		font-size 1em
+
+	a
+		background-color transparent
+		-webkit-text-decoration-skip objects
+
+	a
+		&:active, &:hover
+			outline-width 0
+
+	abbr[title]
+		border-bottom none
+		text-decoration underline
+		text-decoration underline dotted
+
+	b, strong
+		font-weight inherit
+		font-weight bolder
+
+	code, kbd, samp
+		font-family monospace, monospace
+		font-size 1em
+
+	dfn
+		font-style italic
+
+	mark
+		background-color #ff0
+		color #000
+
+	small
+		font-size 80%
+
+	sub, sup
+		font-size 75%
+		line-height 0
+		position relative
+		vertical-align baseline
+
+	sub
+		bottom -0.25em
+
+	sup
+		top -0.5em
+
+	audio, video
+		display inline-block
+
+	audio
+		&:not([controls])
+			display none
+			height 0
+
+	img
+		border-style none
+
+	svg
+		&:not(:root)
+			overflow hidden
+
+	button, input, optgroup, select, textarea
+		font-family sans-serif
+		font-size 100%
+		line-height 1.15
+		margin 0
+
+	button, input
+		overflow visible
+
+	button, select
+		text-transform none
+
+	button, html [type="button"],  [type="reset"], [type="submit"]
+		-webkit-appearance button
+
+	button, [type="button"], [type="reset"], [type="submit"]
+		&::-moz-focus-inner
+			border-style none
+			padding 0
+		
+		&:-moz-focusring
+			outline 1px dotted ButtonText
+
+	fieldset
+		padding 0.35em 0.75em 0.625em
+
+	legend
+		box-sizing border-box
+		color inherit
+		display table
+		max-width 100%
+		padding 0
+		white-space normal
+
+	progress
+		display inline-block
+		vertical-align baseline
+
+	textarea
+		overflow auto
+
+	[type="checkbox"], [type="radio"]
+		box-sizing border-box
+		padding 0
+
+	[type="number"]
+		&::-webkit-inner-spin-button, &::-webkit-outer-spin-button
+			height auto
+
+	[type="search"]
+		-webkit-appearance textfield
+		outline-offset -2px
+
+	[type="search"]
+		&::-webkit-search-cancel-button, &::-webkit-search-decoration
+			-webkit-appearance none
+
+	::-webkit-file-upload-button
+		-webkit-appearance button
+		font inherit
+
+	details, menu
+		display block
+
+	summary
+		display list-item
+
+	canvas
+		display inline-block
+
+	template
+		display none
+
+	[hidden]
+		display none
+
+/**
+ * Main
+ */
+
+.x-body
+	font-family 'Open Sans', sans-serif // Added font-family
+
+html, .x-panel-body-default
+	color $gray-dark // Added color
+	font-size $basefont // Added base font
+	line-height $baseline // Added base line
+
+.pearl
+
+	// Added link styles
+	a
+		color $link-color
+
+		&:hover
+			color $link-color-hover
+
+	/* ::-moz-selection
+		background #b3d4fc
+		text-shadow none
+
+	::selection
+		background #b3d4fc
+		text-shadow none */
+
+	// Added browser heading defaults back
+	h2
+		font-size 1.5em
+		margin 0.83em 0
+
+	h3
+		font-size 1.17em
+		margin 1em 0
+
+	h4
+		font-size 1em
+		margin 1.33em 0
+
+	h5
+		font-size 0.83em
+		margin 1.67em 0
+
+	h6
+		font-size 0.67em
+		margin 2.33em 0
+
+	// Added custom headings
+	h1, h2, h3, h4
+		font-weight normal
+		color $gray-dark
+
+	h1
+		color #5a81af
+
+	h2
+		border-bottom 1px solid $gray-lighter
+
+	h3, h4, h5, h6
+		font-weight bold
+
+	h5, h6
+		font-size 1em
+		margin 0
+
+	hr
+		display block
+		height 1px
+		border 0
+		border-top 1px solid #ccc
+		margin 1em 0
+		padding 0
+
+	audio, canvas, iframe, img, svg, video
+		vertical-align middle
+
+	fieldset
+		border 0
+		margin 0
+		padding 0
+
+	textarea
+		resize vertical
+
+	&.hidden, .hidden
+		hidden()
+
+	&.visuallyhidden, .visuallyhidden
+		visuallyhidden()
+
+	&.invisible, .invisible
+		invisible()
+
+	&.clearfix, .clearfix
+		clearfix()
+
+// @media only screen and (min-width: 35em)
+
+// @media print, (min-resolution: 1.25dppx), (min-resolution: 120dpi)
+
+@media print
+	*, *:before, *:after
+		background transparent !important
+		color #000 !important
+		box-shadow none !important
+		text-shadow none !important
+
+	a, a:visited
+		text-decoration underline
+
+	a[href]:after
+		content ' (' attr(href) ')'
+
+	abbr[title]:after
+		content ' (' attr(title) ')'
+
+	a[href^='#'], a[href^='javascript:']
+		&:after
+			content ''
+	
+	pre
+		white-space pre-wrap !important
+
+	pre, blockquote
+		border 1px solid #999
+		page-break-inside avoid
+
+	thead
+		display table-header-group
+
+	tr, img
+		page-break-inside avoid
+
+	p, h2, h3
+		orphans 3
+		widows 3
+
+	h2, h3
+		page-break-after avoid
+
+// Grid
+@media only screen and (min-width: 30em)
+	.grid
+		display block
+		padding 0
+		margin 0 -0.5 * $grid-gutter
+		text-align $grid-direction
+		// letter-spacing -0.31em
+		text-rendering optimizespeed
+
+		& > .grid
+			overflow hidden
+			margin-right 0
+			margin-left 0
+
+	/* .opera:-o-prefocus, .grid
+		word-spacing -0.43em */
+
+	.grid__cell
+		box-sizing border-box
+		width 100%
+		display inline-block
+		margin 0
+		padding 0 -0.5 * $grid-gutter
+
+		vertical-align top
+
+		text-align $grid-direction
+
+		letter-spacing normal
+		word-spacing normal
+		text-rendering auto
+
+	.grid--center
+		text-align center
+
+	.grid--left
+		text-align left
+
+	.grid--right
+		text-align right
+
+	.grid__cell--center
+		display block
+		margin 0 auto
+
+	.grid__cell--left
+		display block
+		margin-right auto
+
+	.grid__cell--right
+		display block
+		margin-left auto
+
+	grid-build-units(2 3 4)
+
+@media only screen and (min-width: 40em)
+	grid-build-units(2 3 4 5 6 12, '--desktop')
+
+	.sidebar, .sidebar--right
+		width 320px
+
+	.sidebar
+		float left
+
+	.sidebar--right
+		float right

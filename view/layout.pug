@@ -1,0 +1,29 @@
+doctype html
+//- Pearl Layout
+//- Copyright(c) 2012 King Pearl LLC
+//- MIT Licensed
+html
+	//- head
+	block head
+		include include/_head
+
+	body
+		//- header
+		block header
+			include include/_header
+
+		//- main
+		block main
+			main(role='main')
+
+		//- footer
+		block footer
+			include include/_footer
+
+		//- script
+		block script
+			include include/_script
+
+		//- analytics
+		block analytics
+			include include/_analytics

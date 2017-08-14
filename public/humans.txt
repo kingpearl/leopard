@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+	
+	Shawn Jonnet -- CSA -- sjonnet
+
+# THANKS
+
+	<name>
+
+# TECHNOLOGY COLOPHON
+
+	HTML5, CSS3, ES6
+	Node, BOWER, Pug, Nib, Serve, Stylus, UglifyJS, Griddle, HTML5 Boilerplate, jQuery, Normalize
+	mad, Sublime Text 2, Sublime Package Manager, Vim, Vundle
